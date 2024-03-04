@@ -1,18 +1,9 @@
 // action.js
-import { ADD_TICKET, REMOVE_TICKET } from "./constant";
+export const SELECT_SEAT = "SELECT_SEAT";
 
-export const addTicket = (movieName, seatNumber) => ({
-  type: ADD_TICKET,
-  payload: {
-    movieName,
-    seatNumber,
-  },
-});
-
-export const removeTicket = (movieName, seatNumber) => ({
-  type: REMOVE_TICKET,
-  payload: {
-    movieName,
-    seatNumber,
-  },
-});
+export const selectSeat = (seat) => {
+  return {
+    type: SELECT_SEAT,
+    payload: seat,
+  };
+};

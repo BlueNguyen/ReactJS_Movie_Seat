@@ -1,8 +1,4 @@
-// reducer.js
-import { ADD_TICKET, REMOVE_TICKET } from "./constant";
-
-const initialState = {
-  seatArr: [ 
+[ 
       {
       "hang": "", 
       "danhSachGhe": [
@@ -186,46 +182,3 @@ const initialState = {
     }
   
   ]
-  tickets: [],
-};
-
-const ticketReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_TICKET:
-      return {
-        ...state,
-        tickets: [
-          ...state.tickets,
-          {
-            movieName: action.payload.movieName,
-            seatNumber: action.payload.seatNumber,
-          },
-        ],
-      };
-    case REMOVE_TICKET:
-      return {
-        ...state,
-        tickets: state.tickets.filter(
-          (ticket) =>
-            ticket.movieName !== action.payload.movieName ||
-            ticket.seatNumber !== action.payload.seatNumber
-        ),
-      };
-
-      case 'TAKE_DATA':
-      // Tạo ra dữ liệu để hiển thị trong textarea dựa trên các vé đã được chọn
-      const selectedTickets = state.tickets.map(ticket => `Movie: ${ticket.movieName}, Seat: ${ticket.seatNumber}`).join('\n');
-      return {
-        ...state,
-        selectedTickets: selectedTickets,
-      };
-    case 'UPDATE_TEXT_AREA':
-      // Logic cập nhật dữ liệu khi updateTextArea được gọi, nếu cần
-      // Thông thường, không cần thay đổi state ở đây, vì dữ liệu đã được cập nhật trong TAKE_DATA
-      return state;
-    default:
-      return state;
-  }
-};
-
-export default ticketReducer;
