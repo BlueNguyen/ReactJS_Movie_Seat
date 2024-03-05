@@ -1,9 +1,12 @@
 // action.js
-export const SELECT_SEAT = "SELECT_SEAT";
+export const DAT_GHE = "DAT_GHE";
 
-export const selectSeat = (seat) => {
+export const datGhe = (ghe) => {
   return {
-    type: SELECT_SEAT,
-    payload: seat,
+    type: DAT_GHE, 
+    payload: ghe,
   };
 };
+
+
+

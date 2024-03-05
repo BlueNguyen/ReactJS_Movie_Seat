@@ -58,8 +58,12 @@ import { connect } from "react-redux";
   }
 }
 
-const mapDispatchToProps = {
-  selectSeat,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    selectSeat: (seat) => {
+      dispatch(selectSeat(seat)); // Dispatch action selectSeat với thông tin ghế
+    },
+  };
 };
 
 export default connect(null, mapDispatchToProps)(Movie_Seat);

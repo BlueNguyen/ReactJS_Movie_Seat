@@ -22,10 +22,19 @@ class InfoBookSeat extends Component {
               </tr>
             </thead>
             <tbody>
+              <div className="text-light">
+                {/* Render selected seats */}
+                <ul>
+                  {selectedSeats.map((seat, index) => (
+                    <li key={index}>{seat.soGhe}</li>
+                  ))}
+                </ul>
+              </div>
+
               {selectedSeats.map((seat, index) => (
                 <tr key={index}>
-                  <td>{seat.soGhe}</td> 
-                  <td>{seat.gia}</td> 
+                  <td>{seat.soGhe}</td>
+                  <td>{seat.gia}</td>
                   <td></td>
                 </tr>
               ))}
