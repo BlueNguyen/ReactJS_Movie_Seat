@@ -1,5 +1,5 @@
 // reducer.js
-import { DAT_GHE } from "./action";
+import { DAT_GHE, XOA_GHE, XOA_TAT_CA_GHE } from "./action";
 
 const initialState = {
   selectedSeats: [],
@@ -17,11 +17,30 @@ const seatReducer = (state = initialState, action) => {
         state.selectedSeats = danhSachGheDangDat;
       } else {
         danhSachGheDangDat.push(action.payload);
+        state.selectedSeats = danhSachGheDangDat;
       }
+
       return { ...state };
+
+    case XOA_GHE:
+      return {
+        ...state,
+        selectedSeats: state.selectedSeats.filter(
+          (seat) => seat.soGhe !== action.payload
+        ),
+      };
+
+    case XOA_TAT_CA_GHE:
+      return {
+        ...state,
+        selectedSeats: [],
+      };
+
     default:
       return state;
   }
 };
+
+
 
 export default seatReducer;

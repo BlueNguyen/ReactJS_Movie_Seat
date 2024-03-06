@@ -1,27 +1,23 @@
-// RowSeat.jsx
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { debounce } from "lodash";
 import { datGhe } from "./Redux/action";
 
 class RowSeat extends Component {
+  // Tạo một hàm xử lý sự kiện debounce để giảm số lần gọi
+  handleSeatClick = debounce((ghe) => {
+    this.props.datGhe(ghe);
+  }, 300); // Thời gian chờ 300ms
+
   renderGhe = () => {
-    const { hangGhe } = this.props;
+    const { hangGhe, selectedSeats } = this.props;
     return hangGhe.danhSachGhe.map((ghe, index) => {
-      let cssGheDaDat = "";
-      let disabled = false;
-      // Trạng thái ghế đã bị người khác đặt rồi
-      if (ghe.daDat) {
-        cssGheDaDat = "gheDuocChon";
-        disabled = true;
-      }
-      // Trạng thái ghế đang đặt
-      let cssGheDangDat = "";
-      let indexGheDangDat = this.props.selectedSeats.findIndex(
-        (gheDangDat) => gheDangDat.soGhe === ghe.soGhe
-      );
-      if (indexGheDangDat !== -1) {
-        cssGheDangDat = "gheDangChon";
-      }
+      let cssGheDaDat = ghe.daDat ? "gheDuocChon" : "";
+      let cssGheDangDat = selectedSeats.some(
+        (selectedGhe) => selectedGhe.soGhe === ghe.soGhe
+      )
+        ? "gheDangChon"
+        : "";
 
       // hàng ghế đầu tiên 1 2 3...12
       if (hangGhe.hang === "") {
@@ -33,10 +29,10 @@ class RowSeat extends Component {
       } else {
         return (
           <button
-            disabled={disabled}
+            disabled={ghe.daDat}
             className={`seats ${cssGheDaDat} ${cssGheDangDat}`}
             key={index}
-            onClick={() => this.props.datGhe(ghe.soGhe)} // Dispatch action when seat is clicked
+            onClick={() => this.handleSeatClick(ghe)} // Sử dụng hàm xử lý sự kiện debounce
           >
             {ghe.soGhe}
           </button>
@@ -57,16 +53,16 @@ class RowSeat extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    selectedSeats: state.selectedSeats, // selectedSeats là một phần của Redux state
+    selectedSeats: state.selectedSeats,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     datGhe: (ghe) => {
-      dispatch(datGhe(ghe)); // Dispatch action creator datGhe
+      dispatch(datGhe(ghe));
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RowSeat); // Connect to Redux store
+export default connect(mapStateToProps, mapDispatchToProps)(RowSeat);

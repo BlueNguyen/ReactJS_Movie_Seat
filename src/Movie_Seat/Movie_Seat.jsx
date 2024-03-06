@@ -3,7 +3,7 @@ import React from "react";
 import InfoBookSeat from "./InfoBookSeat";
 import danhSachGhe from "./danhSachGhe.json";
 import RowSeat from "./RowSeat";
-import { selectSeat } from "./Redux/action";
+import { datGhe } from "./Redux/action";
 import { connect } from "react-redux";
 
 
@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 
   renderRowSeat = () => {
     return danhSachGhe.map((hangGhe,index) => {
-      return <div key={{index}}>
+      return <div key={index}>
         <RowSeat hangGhe={hangGhe}/>
       </div>
     })
@@ -60,8 +60,8 @@ import { connect } from "react-redux";
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    selectSeat: (seat) => {
-      dispatch(selectSeat(seat)); // Dispatch action selectSeat với thông tin ghế
+    selectSeat: (ghe) => {
+      dispatch(datGhe(ghe));
     },
   };
 };
