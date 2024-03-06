@@ -23,7 +23,7 @@ class RowSeat extends Component {
       if (hangGhe.hang === "") {
         return (
           <span key={index} className="rowNumber">
-            <span style={{ margin: "0 18px" }}>{ghe.soGhe}</span>
+            <span style={{ margin: "0 22px" }}>{ghe.soGhe}</span>
           </span>
         );
       } else {
